@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03data_format_node_array</title>
+    <!--引入jsmind样式(必须)-->
+    <link rel="stylesheet" href="../style/jsmind.css"/>
+    <!--引入jsmind核心文件(必须)-->
+    <script src="../js/jsmind.js"></script>
+    <!--引入jsmind.draggable.js 文件,使jsmind能够通过鼠标拖拽的方式移动节点(可选) -->
+    <script src="../js/jsmind.draggable.js"></script>
+
+
+    <style type="text/css">
+        /*指定jsmind容器样式*/
+        #jsmind_container {
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--为 jsmind 准备一个容器，jsmind 将在这个容器里显示思维导图。可自行定义容器的id、大小及样式-->
+<div id="jsmind_container"></div>
+<!--初始化jsmind-->
+<script type="text/javascript">
+    function load_jsmind() {
+        var options = {// jsmind选项
+            container: 'jsmind_container',// [必选] 容器的ID
+            editable: true,// [可选] 是否启用编辑
+            theme: 'orange'// [可选] 主题
+        };
+
+        var mind = {//jsmind 数据
+            /* 元数据，定义思维导图的名称、作者、版本等信息 */
+            "meta": {
+                "name": "jsMind-demo-tree",
+                "author": "hizzgdev@163.com",
+                "version": "0.2"
+            },
+            /* 数据格式声明 */
+            "format": "node_array",
+            /* 数据内容 */
+            "data": [
+                {"id": "root", "isroot": true, "topic": "jsMind"},
+
+                {"id": "easy", "parentid": "root", "topic": "Easy", "direction": "left"},
+                {"id": "easy1", "parentid": "easy", "topic": "Easy to show"},
+                {"id": "easy2", "parentid": "easy", "topic": "Easy to edit"},
+                {"id": "easy3", "parentid": "easy", "topic": "Easy to store"},
+                {"id": "easy4", "parentid": "easy", "topic": "Easy to embed"},
+
+                {"id": "open", "parentid": "root", "topic": "Open Source", "direction": "right"},
+                {"id": "open1", "parentid": "open", "topic": "on GitHub"},
+                {"id": "open2", "parentid": "open", "topic": "BSD License"},
+
+                {"id": "powerful", "parentid": "root", "topic": "Powerful", "direction": "right"},
+                {"id": "powerful1", "parentid": "powerful", "topic": "Base on Javascript"},
+                {"id": "powerful2", "parentid": "powerful", "topic": "Base on HTML5"},
+                {"id": "powerful3", "parentid": "powerful", "topic": "Depends on you"}
+            ]
+        };
+
+        // 让 jm 显示这个 mind
+        jsMind.show(options, mind);
+        //or
+        //        var jm = new jsMind(options);
+        //        jm.show(mind);
+    }
+    load_jsmind();
+</script>
+</body>
+</html>

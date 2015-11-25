@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>07options_support_html</title>
+    <!--引入jsmind样式(必须)-->
+    <link rel="stylesheet" href="../style/jsmind.css"/>
+    <!--引入jsmind核心文件(必须)-->
+    <script src="../js/jsmind.js"></script>
+    <!--引入jsmind.draggable.js 文件,使jsmind能够通过鼠标拖拽的方式移动节点(可选) -->
+    <script src="../js/jsmind.draggable.js"></script>
+
+    <style type="text/css">
+        /*指定jsmind容器样式*/
+        #jsmind_container {
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--为 jsmind 准备一个容器，jsmind 将在这个容器里显示思维导图。可自行定义容器的id、大小及样式-->
+<div id="jsmind_container"></div>
+<!--初始化jsmind-->
+<script type="text/javascript">
+
+    function load_jsmind() {
+        var options = {// jsmind选项
+            container: 'jsmind_container',// [必选] 容器的ID
+            editable: true,// [可选] 是否启用编辑
+            theme: 'orange',// [可选] 主题
+            mode: 'full',//显示模式,jsMind 现支持两种显示模式:full - 子节点动态分布在根节点两侧 [默认值],side - 子节点只分布在根节点右侧
+            support_html: false,//是否支持节点里的HTML元素,默认是true
+            shortcut: {//为F1按钮提供一个处理器
+                handles: {
+                    test: function (j, e) {
+                        console.log(j);
+                        var selected_node = j.get_selected_node();
+                        if (!!selected_node && !selected_node.isroot) {
+                            var nodeid = jsMind.util.uuid.newid();
+                            var node = j.insert_node_after(selected_node, nodeid, 'New Node');
+                            if (!!node) {
+                                j.select_node(nodeid);
+                                j.begin_edit(nodeid);
+                            }
+                        }
+                    }
+                },
+                mapping: {
+                    test: 112   // <F1>
+                }
+            }
+        };
+
+        var mind = {//jsmind 数据
+            /* 元数据，定义思维导图的名称、作者、版本等信息 */
+            "meta": {
+                "name": "jsMind-demo-tree",
+                "author": "hizzgdev@163.com",
+                "version": "0.2"
+            },
+            /* 数据格式声明 */
+            "format": "node_tree",
+            /* 数据内容 */
+            "data": {
+                "id": "root", "topic": "jsMind", "children": [
+                    {
+                        "id": "easy", "topic": "Easy", "direction": "left", "children": [
+                        {"id": "easy1", "topic": "Easy to show"},
+                        {"id": "easy2", "topic": "Easy to edit"},
+                        {"id": "easy3", "topic": "Easy to store"},
+                        {"id": "easy4", "topic": "Easy to embed"}
+                    ]
+                    },
+                    {
+                        "id": "open", "topic": "Open Source", "direction": "right", "children": [
+                        {"id": "open1", "topic": "on <a href='http://www.github.com' target='_blank'>GitHub</a>"},
+                        {"id": "open2", "topic": "BSD License"}
+                    ]
+                    },
+                    {
+                        "id": "powerful", "topic": "Powerful", "direction": "right", "children": [
+                        {"id": "powerful1", "topic": "Base on Javascript"},
+                        {"id": "powerful2", "topic": "Base on HTML5"},
+                        {"id": "powerful3", "topic": "Depends on you"}
+                    ]
+                    },
+                    {
+                        "id": "other", "topic": "test node", "direction": "left", "children": [
+                        {"id": "other1", "topic": "I'm from local variable"},
+                        {"id": "other2", "topic": "I can do everything"}
+                    ]
+                    }
+                ]
+            }
+        };
+
+        // 让 jm 显示这个 mind
+        jsMind.show(options, mind);
+        //or
+//        var jm = new jsMind(options);
+//        jm.show(mind);
+    }
+    load_jsmind();
+</script>
+</body>
+</html>
